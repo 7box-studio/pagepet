@@ -1,0 +1,16 @@
+# Local design material and configuration are never published.
+/prompt.md
+/prompt*.md
+/.private/
+/.agents/
+/.codex/
+/.env
+/.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+/platformio.local.ini
+/.pio/
+/build/
+/dist/

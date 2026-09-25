@@ -1,0 +1,20 @@
+name: Host tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Build and run gameplay tests
+        run: |
+          g++ -std=c++11 -Wall -Wextra -Werror -Iinclude src/*.cpp tests/companion_engine_test.cpp -o /tmp/pagepet-test
+          /tmp/pagepet-test

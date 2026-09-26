@@ -1,0 +1,52 @@
+#include "character_art.h"
+
+namespace companion {
+namespace {
+
+// Each pair of bytes is one row. These small monochrome sprites need no heap or
+// graphics library and can be scaled by the firmware's screen adapter.
+constexpr uint16_t kArt[][16] = {
+    {0x0000,0x0180,0x03c0,0x07e0,0x0ff0,0x0db0,0x0ff0,0x07e0,
+     0x03c0,0x07e0,0x0ff0,0x1ff8,0x1ff8,0x0db0,0x1998,0x300c}, // Wanderer
+    {0x0180,0x03c0,0x07e0,0x0ff0,0x0ff0,0x0db0,0x0ff0,0x07e0,
+     0x03c0,0x07e0,0x0ff0,0x1ff8,0x1ff8,0x0ff0,0x1998,0x300c}, // Bibliomancer
+    {0x0180,0x03c0,0x07e0,0x0ff0,0x1ff8,0x3ffc,0x0db0,0x0ff0,
+     0x07e0,0x03c0,0x07e0,0x0ff0,0x1ff8,0x1ff8,0x1998,0x300c}, // Mage / wizard
+    {0x0000,0x03c0,0x07e0,0x0ff0,0x1ff8,0x0db0,0x0ff0,0x07e0,
+     0x03c0,0x1ff8,0x1ff8,0x1ff8,0x0ff0,0x0db0,0x1998,0x300c}, // Archivist
+    {0x0000,0x330c,0x3ffc,0x1ff8,0x3ffc,0x36cc,0x3ffc,0x1ff8,
+     0x0ff0,0x1ff8,0x3ffc,0x7ffe,0x7ffe,0x36cc,0x66c6,0xc003}, // Orc
+    {0x0000,0x0180,0x03c0,0x07e0,0x1ff8,0x3ffc,0x6db6,0x7ffe,
+     0x3ffc,0x1ff8,0x07e0,0x1ff8,0x3ffc,0x1ff8,0x366c,0x6006}, // Elf
+    {0x0180,0x07e0,0x0ff0,0x1ff8,0x3ffc,0x3ffc,0x3c3c,0x3ffc,
+     0x1ff8,0x07e0,0x3ffc,0x7ffe,0x7ffe,0x3ffc,0x366c,0x6006}, // Knight
+};
+
+constexpr const char* kNames[] = {
+    "Wanderer", "Bibliomancer", "Wizard", "Archivist", "Orc", "Elf", "Knight"};
+
+}
+
+bool renderCharacter(CharacterClass character, uint8_t* bitmap, size_t length) {
+  const unsigned index = static_cast<unsigned>(character);
+  if (!bitmap || length < kSpriteBytes || index >= sizeof(kArt) / sizeof(kArt[0]))
+    return false;
+  for (unsigned row = 0; row < kSpriteHeight; ++row) {
+    bitmap[row * 2] = static_cast<uint8_t>(kArt[index][row] >> 8);
+    bitmap[row * 2 + 1] = static_cast<uint8_t>(kArt[index][row]);
+  }
+  return true;
+}
+
+bool renderCharacter(VisualStyle style, CharacterClass character,
+                     uint8_t* bitmap, size_t length) {
+  return style == VisualStyle::Fantasy &&
+         renderCharacter(character, bitmap, length);
+}
+
+const char* characterName(CharacterClass character) {
+  const unsigned index = static_cast<unsigned>(character);
+  return index < sizeof(kNames) / sizeof(kNames[0]) ? kNames[index] : "Unknown";
+}
+
+}

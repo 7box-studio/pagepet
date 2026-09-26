@@ -4,12 +4,18 @@
 
 namespace companion {
 
+/** @brief Artwork selection; gameplay progress is shared across styles. */
+enum class VisualStyle : uint8_t { Fantasy = 0, CuteAnimals = 1 };
+
 /** @brief Visual progression branch for the character. */
 enum class CharacterClass : uint8_t {
   Wanderer = 0,
   Bibliomancer = 1,
   Mage = 2,
   Archivist = 3,
+  Orc = 4,
+  Elf = 5,
+  Knight = 6,
 };
 
 /** @brief Expression derived from time since the last credited page. */
@@ -35,6 +41,7 @@ struct CompanionState {
   uint16_t day_pages = 0;
   CharacterClass character_class = CharacterClass::Wanderer;
   uint8_t equipment_id = 0;
+  VisualStyle visual_style = VisualStyle::Fantasy;
 };
 
 /** @brief Confirmed forward page change supplied by the firmware adapter. */

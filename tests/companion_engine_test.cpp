@@ -1,5 +1,6 @@
 #include "companion_engine.h"
 #include "progression.h"
+#include "character_art.h"
 
 #include <array>
 #include <cassert>
@@ -49,4 +50,30 @@ int main() {
                 restored.state().last_read_unix + 72 * 3600, true) ==
          Mood::Hibernating);
   assert(moodAt(restored.state(), 0, false) == Mood::Unknown);
+  for (unsigned i = 0; i <= static_cast<unsigned>(CharacterClass::Knight); ++i) {
+    const CharacterClass kind = static_cast<CharacterClass>(i);
+    std::array<uint8_t, kSpriteBytes> sprite{};
+    assert(renderCharacter(kind, sprite.data(), sprite.size()));
+    assert(renderCharacter(VisualStyle::Fantasy, kind, sprite.data(), sprite.size()));
+    assert(characterName(kind)[0] != '\0');
+    bool has_ink = false;
+    for (uint8_t byte : sprite) has_ink |= byte != 0;
+    assert(has_ink);
+    CompanionState selected = restored.state();
+    selected.character_class = kind;
+    assert(encodeState(selected, bytes.data(), bytes.size()));
+    CompanionState decoded;
+    assert(decodeState(bytes.data(), bytes.size(), decoded));
+    assert(decoded.character_class == kind);
+  }
+  assert(!renderCharacter(static_cast<CharacterClass>(255), nullptr, 0));
+  CompanionState future_style = restored.state();
+  future_style.visual_style = VisualStyle::CuteAnimals;
+  assert(encodeState(future_style, bytes.data(), bytes.size()));
+  CompanionState loaded_style;
+  assert(decodeState(bytes.data(), bytes.size(), loaded_style));
+  assert(loaded_style.visual_style == VisualStyle::CuteAnimals);
+  std::array<uint8_t, kSpriteBytes> unsupported_sprite{};
+  assert(!renderCharacter(VisualStyle::CuteAnimals, loaded_style.character_class,
+                          unsupported_sprite.data(), unsupported_sprite.size()));
 }

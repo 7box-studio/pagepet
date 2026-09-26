@@ -20,6 +20,16 @@ English is the initial game language. Gameplay state contains no display text, s
 | `companion_engine` | Page validation, streaks, achievements, unsaved changes |
 | `progression` | Level and mood calculations |
 | `state_codec` | Versioned save record and checksum validation |
+| `character_art` | Seven 16×16 monochrome character sprites and packed bitmap output |
+
+The character set includes a wanderer, bibliomancer, wizard, archivist, orc,
+elf, and knight. Set `CompanionState::character_class` to select one; the choice
+is stored in the existing save record. `renderCharacter()` produces a 16×16
+1-bit bitmap that a future firmware screen adapter can scale and display.
+Fantasy is the current visual style. The save record also has a separate style
+field for a future settings choice such as cute animals; reading progress stays
+the same when the artwork changes. Cute animal sprites and a settings screen
+have not been implemented.
 
 The gameplay core has no dynamic allocation or firmware dependencies. Device storage, screen rendering, and CrossPoint event hooks belong in separate adapters.
 

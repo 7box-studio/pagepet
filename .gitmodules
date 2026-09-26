@@ -1,0 +1,4 @@
+[submodule "landing"]
+	path = landing
+	url = git@gitlab.com:7box-studio/pagepet/landing.git
+	branch = main

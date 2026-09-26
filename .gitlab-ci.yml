@@ -1,0 +1,23 @@
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
+
+stages:
+  - test
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  GIT_SUBMODULE_FORCE_HTTPS: "true"
+  GIT_SUBMODULE_DEPTH: "1"
+
+host_tests:
+  stage: test
+  image: gcc:14
+  interruptible: true
+  timeout: 10m
+  script:
+    - g++ -std=c++11 -Wall -Wextra -Werror -Iinclude src/*.cpp tests/companion_engine_test.cpp -o /tmp/pagepet-test
+    - /tmp/pagepet-test

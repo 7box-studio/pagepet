@@ -1,4 +1,0 @@
-[submodule "landing"]
-	path = landing
-	url = https://github.com/7box-studio/pagepet-landing.git
-	branch = main

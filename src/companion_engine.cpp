@@ -13,9 +13,13 @@ template <typename T> void incrementUnlessMax(T& value) {
 
 }
 
-void CompanionEngine::beginSession() {
+void CompanionEngine::beginSession(uint32_t monotonic_ms) {
   has_anchor_ = false;
-  state_.session_pages = 0;
+  if (state_.session_pages != 0) {
+    state_.session_pages = 0;
+    if (!dirty_) first_dirty_ms_ = monotonic_ms;
+    dirty_ = true;
+  }
 }
 
 void CompanionEngine::setState(const CompanionState& state) {
@@ -26,6 +30,9 @@ void CompanionEngine::setState(const CompanionState& state) {
 }
 
 bool CompanionEngine::onPageTurn(const PageTurnEvent& event) {
+  // A redraw of the current logical page is not a new reading anchor.
+  if (has_anchor_ && event.book_id == anchor_book_ &&
+      event.page_index == anchor_page_) return false;
   const bool eligible = has_anchor_ && event.book_id == anchor_book_ &&
                         anchor_page_ != UINT32_MAX &&
                         event.page_index == anchor_page_ + 1 &&

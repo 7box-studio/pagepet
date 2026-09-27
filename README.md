@@ -32,6 +32,14 @@ the same when the artwork changes. Cute animal sprites and a settings screen
 have not been implemented.
 
 The gameplay core has no dynamic allocation or firmware dependencies. Device storage, screen rendering, and CrossPoint event hooks belong in separate adapters.
+The `library.json` manifest lets PlatformIO compile this repository as a
+library when it is checked out under CrossPoint's `lib/` directory.
+
+The current working plan is documented in [`docs/ROADMAP.md`](docs/ROADMAP.md),
+and the expected firmware boundary is defined in
+[`docs/INTEGRATION_CONTRACT.md`](docs/INTEGRATION_CONTRACT.md).
+The CrossPoint sync, firmware release, and web installation gates are described
+in [`docs/RELEASE_PIPELINE.md`](docs/RELEASE_PIPELINE.md).
 
 ## Run host tests
 

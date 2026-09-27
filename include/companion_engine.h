@@ -19,8 +19,10 @@ class CompanionEngine {
    *  @return True when a page earned XP.
    */
   bool onPageTurn(const PageTurnEvent& event);
-  /** @brief Reset the page anchor and session count when reading begins. */
-  void beginSession();
+  /** @brief Reset the page anchor and session count when reading begins.
+   * Pass the current monotonic time so a changed session count can be flushed.
+   */
+  void beginSession(uint32_t monotonic_ms = 0);
   /** @brief Read the current gameplay state. */
   const CompanionState& state() const { return state_; }
   /** @brief Replace state after a trusted load and reset runtime timers. */

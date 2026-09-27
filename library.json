@@ -1,0 +1,14 @@
+{
+  "name": "PagePet",
+  "version": "0.1.0",
+  "description": "Device-independent reading companion gameplay core",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/7box-studio/pagepet.git"
+  },
+  "build": {
+    "includeDir": "include",
+    "srcDir": "src"
+  }
+}

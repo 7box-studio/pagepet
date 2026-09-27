@@ -1,14 +1,14 @@
-# PagePet for CrossPoint
+# PagePet for PagePet Reader
 
-**A reading-powered virtual pet for CrossPoint on the Xteink X3.**
+**A reading-powered virtual companion for PagePet Reader, an independent CrossPoint fork.**
 
 PagePet is an independent project by 7box-studio. The idea is simple: reading helps a small pixel companion grow. The game stays out of the way while a book is open, and the companion can appear on a dedicated screen or the E-Ink sleep screen.
 
 ## Status
 
-This repository currently contains a device-independent C++ gameplay core. It validates page turns, tracks reading progress and achievements, derives levels and mood, and encodes a versioned save record. It has not yet been integrated into CrossPoint or tested on an X3. There is no flashable firmware release.
+This repository contains a device-independent C++ gameplay core. It validates page turns, tracks reading progress and achievements, derives levels and mood, and encodes a versioned save record. The core is integrated into the 7box-studio PagePet Reader firmware through a thin adapter. Device validation and a stable flashable firmware release are still pending.
 
-CrossPoint's current SD plugin interface does not run native gameplay code during reading or draw a companion on the sleep screen. A future device release will therefore need a CrossPoint-based firmware build that includes the PagePet runtime. Once that runtime exists, art and configuration can be distributed separately on the SD card. Firmware updates will still be needed for runtime changes and compatibility fixes.
+PagePet Reader is a separate firmware fork based on the [CrossPoint Reader project](https://github.com/crosspoint-reader/crosspoint-reader). The library stays independent of device storage, display, and input code; those responsibilities belong to the firmware adapter. Firmware updates are required for runtime changes and compatibility fixes, while the companion save remains on the SD card.
 
 English is the initial game language. Gameplay state contains no display text, so other languages can be added without changing saved data.
 

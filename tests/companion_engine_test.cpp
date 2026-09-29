@@ -14,6 +14,13 @@ static PageTurnEvent turn(uint32_t page, uint32_t ms, int32_t day = 20000) {
 
 int main() {
   CompanionEngine engine;
+  assert(engine.state().character_class == CharacterClass::Dragon);
+  CompanionEngine selection;
+  assert(selection.selectCharacter(CharacterClass::Elf));
+  assert(selection.dirty());
+  assert(selection.state().character_class == CharacterClass::Elf);
+  assert(!selection.selectCharacter(CharacterClass::Elf));
+  assert(!selection.selectCharacter(static_cast<CharacterClass>(255)));
   assert(!engine.onPageTurn(turn(1, 0)));
   assert(!engine.onPageTurn(turn(2, 14000)));
   assert(engine.onPageTurn(turn(3, 29000)));
@@ -50,7 +57,7 @@ int main() {
                 restored.state().last_read_unix + 72 * 3600, true) ==
          Mood::Hibernating);
   assert(moodAt(restored.state(), 0, false) == Mood::Unknown);
-  for (unsigned i = 0; i <= static_cast<unsigned>(CharacterClass::Knight); ++i) {
+  for (unsigned i = 0; i <= static_cast<unsigned>(CharacterClass::Dragon); ++i) {
     const CharacterClass kind = static_cast<CharacterClass>(i);
     std::array<uint8_t, kSpriteBytes> sprite{};
     assert(renderCharacter(kind, sprite.data(), sprite.size()));

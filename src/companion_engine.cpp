@@ -29,6 +29,13 @@ void CompanionEngine::setState(const CompanionState& state) {
   first_dirty_ms_ = 0;
 }
 
+bool CompanionEngine::selectCharacter(CharacterClass character) {
+  if (character > CharacterClass::Dragon || state_.character_class == character) return false;
+  state_.character_class = character;
+  dirty_ = true;
+  return true;
+}
+
 bool CompanionEngine::onPageTurn(const PageTurnEvent& event) {
   // A redraw of the current logical page is not a new reading anchor.
   if (has_anchor_ && event.book_id == anchor_book_ &&

@@ -16,6 +16,7 @@ enum class CharacterClass : uint8_t {
   Orc = 4,
   Elf = 5,
   Knight = 6,
+  Dragon = 7,
 };
 
 /** @brief Expression derived from time since the last credited page. */
@@ -39,7 +40,7 @@ struct CompanionState {
   uint16_t streak_days = 0;
   uint16_t session_pages = 0;
   uint16_t day_pages = 0;
-  CharacterClass character_class = CharacterClass::Wanderer;
+  CharacterClass character_class = CharacterClass::Dragon;
   uint8_t equipment_id = 0;
   VisualStyle visual_style = VisualStyle::Fantasy;
 };

@@ -66,7 +66,7 @@ bool decodeState(const uint8_t* data, size_t length, CompanionState& out) {
       data[2] != kVersion ||
       data[3] > static_cast<uint8_t>(VisualStyle::CuteAnimals) ||
       get16(data + 36) != crc16(data, 36) ||
-      data[34] > static_cast<uint8_t>(CharacterClass::Knight))
+      data[34] > static_cast<uint8_t>(CharacterClass::Dragon))
     return false;
   CompanionState loaded;
   loaded.total_xp = get32(data + 4);

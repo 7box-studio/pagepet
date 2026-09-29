@@ -25,6 +25,8 @@ class CompanionEngine {
   void beginSession(uint32_t monotonic_ms = 0);
   /** @brief Read the current gameplay state. */
   const CompanionState& state() const { return state_; }
+  /** @brief Change artwork without resetting reading progress or the page anchor. */
+  bool selectCharacter(CharacterClass character);
   /** @brief Replace state after a trusted load and reset runtime timers. */
   void setState(const CompanionState& state);
   /** @brief Indicate whether gameplay changes still need persistence. */

@@ -1,8 +1,8 @@
-# CrossPoint integration contract
+# PagePet Reader integration contract
 
-The gameplay core deliberately knows nothing about CrossPoint, Xteink, SD
-cards, displays, or input buttons. The firmware adapter should be a thin
-translation layer around `CompanionEngine`.
+The gameplay core deliberately knows nothing about PagePet Reader's hardware,
+FreeInk SDK, SD cards, displays, or input buttons. The firmware adapter should
+be a thin translation layer around `CompanionEngine`.
 
 ## Startup and restore
 

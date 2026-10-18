@@ -6,7 +6,7 @@ noted.
 
 ## Working MVP
 
-- A local reading companion for CrossPoint on the Xteink X3.
+- A local reading companion for PagePet Reader on the Xteink X3.
 - Confirmed forward page changes award XP; button presses and invalid jumps do
   not.
 - Levels, mood, reading streaks, three achievements, and a character choice.
@@ -18,7 +18,7 @@ noted.
 ## Delivery phases
 
 1. **Core foundation** — gameplay rules, save format, art API, and host tests.
-2. **CrossPoint adapter** — translate reader events, time, lifecycle, and
+2. **PagePet Reader adapter** — translate reader events, time, lifecycle, and
    storage into the device-independent core.
 3. **First device screen** — show the companion, level, XP, mood, and session
    progress with E-Ink-safe redraw behavior.
@@ -26,7 +26,7 @@ noted.
    power loss, and save migrations.
 5. **Hardware validation** — long reading sessions, sleep/wake, low battery,
    missing clock, false page events, and visual legibility.
-6. **Release packaging** — sync and release gates, fork OTA, firmware build
+6. **Release packaging** — release gates, firmware build
    instructions, SD-card assets, installation/recovery guide, changelog, and
    a landing page that links to a verified firmware image.
 7. **Post-MVP** — sleep-screen support, additional art styles, equipment, and
@@ -35,18 +35,20 @@ noted.
 ## Current checkpoint
 
 The device-independent core is implemented and host-tested. The 7box-studio
-CrossPoint fork is available in the neighboring `crosspoint-reader` checkout.
-The next dependency is an integrated firmware build and X3 hardware validation.
+PagePet Reader firmware is available at
+[pagepet-reader](https://github.com/7box-studio/pagepet-reader).
+The core is integrated into the standalone firmware and its X3 build passes.
+The next dependency is X3 hardware validation.
 The update and publication gates are in [RELEASE_PIPELINE.md](RELEASE_PIPELINE.md).
 
 ## Definition of done for MVP
 
-- A clean CrossPoint build can initialize PagePet and load a valid save.
+- A clean PagePet Reader build can initialize PagePet and load a valid save.
 - Only eligible page events change progress.
 - Progress survives normal restart and an interrupted save does not destroy
   the last valid record.
 - The companion screen is readable and does not interfere with ordinary
   reading or sleep/wake behavior.
 - A new user can install the build and understand how to recover/reset data.
-- The firmware's update check stays on the PagePet release channel and cannot
-  silently replace the game with an official CrossPoint image.
+- The firmware's update check stays on the PagePet Reader release channel and
+  cannot silently replace the game with an unrelated firmware image.
